@@ -1,0 +1,6 @@
+[
+  {"title": "Shirt", "price": 150, "count": 2, "img": "f1.jpg"},
+  {"title": "Socks", "price": 50 , "count": 2, "img": "f2.jpg"},
+  {"title": "Jacket","price": 350, "count": 2, "img": "f3.jpg"},
+  {"title": "Shoes", "price": 250, "count": 2, "img": "f4.jpg"}
+]

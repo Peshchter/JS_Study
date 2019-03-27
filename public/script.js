@@ -21,14 +21,12 @@ class CartList {
         this.items = [];
     }
     
-    fetchItems(){
-        this.items = [
-            {title: 'Shirt', price: 150, count: 2, img: 'f1.jpg'},
-            {title: 'Socks', price: 50 , count: 2, img: 'f2.jpg'},
-            {title: 'Jacket',price: 350, count: 2, img: 'f3.jpg'},
-            {title: 'Shoes', price: 250, count: 2, img: 'f4.jpg'},
-        ];
-        this.items = this.items.map(item => new CartItem(item.title, item.price, item.img));   
+    fetchItems(callback){
+        this.items = [];
+        sendRequest('/products.json', (items) => {
+            this.items = items.map(item => new CartItem(item.title, item.price, item.img));
+            callback();
+        });
     }
     
     render(){
@@ -44,8 +42,20 @@ class CartList {
     }
 }
 
+function sendRequest(url, callback) {
+    let rqst = new XMLHttpRequest();
+    rqst.open('GET', url);
+    rqst.send();
+    rqst.onreadystatechange = () => {
+        if (rqst.readyState === XMLHttpRequest.DONE) {
+            callback(JSON.parse(rqst.responseText));
+        }
+    };
+}
+
 const cart = new CartList();
-cart.fetchItems();
-document.querySelector('.items-container').innerHTML = cart.render();
+cart.fetchItems(() => {
+    document.querySelector('.items-container').innerHTML = cart.render();
+});
 document.querySelector('.grand-total-price').innerHTML = `Итого: <span class="pink" style=" margin-left: 30px; margin-right: 30px;">\$${cart.calculate()}</span> `;
 
