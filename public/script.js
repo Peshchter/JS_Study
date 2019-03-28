@@ -23,7 +23,6 @@ class CartList {
     }
 
     fetchItems() {
-        this.items = [];
         return new Promise((resolve, reject) => {
             sendRequest('/products.json')
                 .then(
@@ -38,6 +37,13 @@ class CartList {
         });
     }
 
+    clearCart() {
+        this.items = [];
+        return new Promise((resolve, reject) => {
+            resolve();
+        });
+    }
+
     render() {
         if (this.items.length > 0) {
             return this.items.map(item => item.render()).join('');
@@ -47,12 +53,38 @@ class CartList {
     }
 
     calculate() {
-        let cost = 0;
-        for (let item of this.items) {
-            cost += item.price * item.count;
-        }
-        return cost;
+        return new Promise((resolve, reject) => {
+            let cost = 0;
+            for (let item of this.items) {
+                cost += item.price * item.count;
+            }
+            resolve(cost);
+        });
     }
+
+    removeItem(item) {
+        return new Promise((resolve, reject) => {
+            for (let i = 0; i < this.items.length; i++) {
+                if (this.items[i].title === item.title && this.items[i].price === item.price) {
+                    this.items.splice(i,1);
+                    resolve();
+                }
+            }
+        });
+    }
+
+    addItem(item) {
+        return new Promise((resolve, reject) => {
+            for (let i = 0; i < this.items.length; i++) {
+                if (this.items[i].title === item.title && this.items[i].price === item.price) {
+                    this.items[i].count++;
+                    resolve();
+                }
+            }
+            this.items.push(new CartItem(item.title, item.price, item.img));
+            resolve();
+        })
+    };
 }
 
 function sendRequest(url) {
@@ -72,14 +104,30 @@ function sendRequest(url) {
 }
 
 const cart = new CartList();
-cart.fetchItems().then(
+cart.fetchItems()
+    .then(
+        () => {
+            document
+                .querySelector(
+                    '.items-container'
+                ).innerHTML = cart.render();
+        }
+
+        ,
+        (txt) => {
+            document.querySelector('.items-container').innerHTML = `${txt}`;
+        }
+    ).then(
     () => {
-        document.querySelector('.items-container').innerHTML = cart.render();
-    },
-    (txt) => {
-        document.querySelector('.items-container').innerHTML = `${txt}`;
+        cart.calculate().then(
+            (cost) => {
+                document.querySelector('.grand-total-price').innerHTML = `Итого: 
+            <span class="pink" style="margin-left:30px;margin-right: 30px;">
+            \$${cost}</span>`;
+            }
+        )
     }
 );
 
-document.querySelector('.grand-total-price').innerHTML = `Итого: <span class="pink" style=" margin-left: 30px; margin-right: 30px;">\$${cart.calculate()}</span> `;
+
 
