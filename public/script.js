@@ -39,7 +39,7 @@ class CartList {
 
     clearCart() {
         this.items = [];
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             resolve();
         });
     }
@@ -53,20 +53,18 @@ class CartList {
     }
 
     calculate() {
-        return new Promise((resolve, reject) => {
-            let cost = 0;
-            for (let item of this.items) {
-                cost += item.price * item.count;
-            }
-            resolve(cost);
-        });
+        let cost = 0;
+        for (let item of this.items) {
+            cost += item.price * item.count;
+        }
+        return cost;
     }
 
     removeItem(item) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             for (let i = 0; i < this.items.length; i++) {
                 if (this.items[i].title === item.title && this.items[i].price === item.price) {
-                    this.items.splice(i,1);
+                    this.items.splice(i, 1);
                     resolve();
                 }
             }
@@ -74,7 +72,7 @@ class CartList {
     }
 
     addItem(item) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             for (let i = 0; i < this.items.length; i++) {
                 if (this.items[i].title === item.title && this.items[i].price === item.price) {
                     this.items[i].count++;
@@ -106,26 +104,17 @@ function sendRequest(url) {
 const cart = new CartList();
 cart.fetchItems()
     .then(
-        () => {
-            document
-                .querySelector(
-                    '.items-container'
-                ).innerHTML = cart.render();
-        }
-
-        ,
-        (txt) => {
-            document.querySelector('.items-container').innerHTML = `${txt}`;
-        }
+        () => document.querySelector('.items-container').innerHTML = cart.render(),
+        (txt) => document.querySelector('.items-container').innerHTML = `${txt}`
     ).then(
     () => {
-        cart.calculate().then(
-            (cost) => {
-                document.querySelector('.grand-total-price').innerHTML = `Итого: 
+        return cart.calculate();
+    }
+    ).then(
+    (cost) => {
+        document.querySelector('.grand-total-price').innerHTML = `Итого: 
             <span class="pink" style="margin-left:30px;margin-right: 30px;">
             \$${cost}</span>`;
-            }
-        )
     }
 );
 
