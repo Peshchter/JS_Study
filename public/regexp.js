@@ -1,10 +1,10 @@
 //Первое задание (замена одинарных кавычек двойными)
 
 const str = `Theodore Dreiser, the great American progressive writer, was born in a poor family in 1871. He began to work for his living when he was sixteen. He had a number of jobs, and at one time was a newspaper reporter. As a reporter he gained a wide experience of life, which was a great help to him when he took up novel-writing.
-Dreiser's literary career started in 1900 when "Sister Carrie" was published. In this novel and also in his later works, the writer exposed the true nature of American "democracy"
+Dreiser's literary career started in 1900 when 'Sister Carrie' was published. In this novel and also in his later works, the writer exposed the true nature of American 'democracy'.
 Dreiser was deeply impressed by the Great October Socialist Revolution. In 1927—28 he visited the Soviet Union and from that time on was a true friend to our country. In 1945, at the age of 74, he joined the Communist Party of the USA.
 Dreiser died in 1945.
-The passage below comes from "The Financier" Frank Cowperwood at thirteen is shown as a boy who is already fully aware of the power of money. Later on he becomes a typical capitalist who stops at nothing to become rich and powerful.
+The passage below comes from 'The Financier' Frank Cowperwood at thirteen is shown as a boy who is already fully aware of the power of money. Later on he becomes a typical capitalist who stops at nothing to become rich and powerful.
 
 Buttonwood Street, Philadelphia, where Frank Cowperwood spent the first ten years of his life, was a lovely place for a boy to live in. There were mainly red brick houses there with small marble steps leading up to the front doors. There were trees in the street — a lot of them. Behind each house there was a garden with trees and grass and sometimes flowers.
 The Cowperwoods, father and mother, were happy with their children. Henry Cowperwood, the father of the family, started life as a bank clerk, but when Frank, his elder son, was ten, Henry Cowperwood became a teller at the bank.
@@ -37,9 +37,9 @@ Uncle Seneca became a frequent visitor to the house and took an increasing inter
 And with these words he gave the boy a ten-dollar gold piece with which to start a bank-account.`;
 
 const regexp = /\'/g;              
-str.replace(regexp, '\"');
+console.log(str.replace(regexp, '\"'));
 
 //Второе задание (замена одинарных кавычек двойными не внутри слов)
-
+console.log('\n\n/////////////////////////////////////////////////////////////////////\nВторое задание\n\n');
 const regexp2 = /\B\'/g;
-str.replace(regexp2, '\"');
+console.log(str.replace(regexp2, '\"'));
