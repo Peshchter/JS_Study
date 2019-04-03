@@ -50,6 +50,7 @@ footer {
   white-space: nowrap;
   transition: all 0.3s;
   border: 1px solid #f16d7f;
+  outline: none;
 }
 .header-flex {
   display: flex;
