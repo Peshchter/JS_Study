@@ -1519,6 +1519,7 @@ form em {
 .cart-menu-img {
   width: 72px;
   height: 85px;
+    background-size: cover;
 }
 .cart-menu-product-info {
   display: flex;

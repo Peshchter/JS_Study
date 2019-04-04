@@ -3,35 +3,31 @@
 
 <head>
     <title>eShop</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
-<div id="app">
-    <header class="header">
-        <div class="container header-flex">
-            <div class="header-left">
-                <form action="#" class="header-form">
-                    <input type="text" class="search-form" v-model="searchLine" placeholder="Search for Item...">
-                    <button class="search-button" @click="handleSearchClick"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-            <div class="header-right">
-                <h2 class="grand-total-price" style="display: flex; align-items: center; margin-right: 50px;">${{calculate()}}</h2>
+    <div id="app">
+        <header class="header">
+            <div class="container header-flex">
+                <div class="header-left">
+                    <form action="#" class="header-form">
+                        <input type="text" class="search-form" v-model="searchLine" placeholder="Search for Item...">
+                        <button class="search-button" @click="handleSearchClick"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="header-right">
+                    <h2 class="grand-total-price" style="display: flex; align-items: center; margin-right: 50px;">${{calculate()}}</h2>
 
                     <div v-if="popupCart.visible" class="cart-drop">
                         <div class="drop-menu" style="display: flex; left: -200px; top: 30px; flex-direction: column; min-width: 260px; ">
                             <div v-for="item in cart.items" class="cart-menu-item">
-                                <div class="cart-menu-img"
-                                     style="background-image: url(img/cart-menu-item-img1.jpg);"></div>
+                                <div class="cart-menu-img" :style="`background-image: url(img/` + item.img + `);`"></div>
                                 <div class="cart-menu-product-info">
-                                    <h3 class="drop-cart-menu-h3">{{item.name}}</h3>
-                                    <div class="cart-menu-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                            class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                            class="fas fa-star"></i></div>
+                                    <h3 class="drop-cart-menu-h3">{{item.title}}</h3>
+                                    <div class="cart-menu-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                                     <h4 class="cart-drop-menu-price">{{item.count}} x ${{item.price}}</h4>
                                 </div>
                                 <div class="cart-menu-product-remove">
@@ -43,37 +39,35 @@
                                 <h2 class="cart-menu-h2">Итого</h2>
                                 <h2 class="cart-menu-h2">${{calculate()}}</h2>
                             </div>
-                            <a href="checkout.html" class="white-pink-button form-button"
-                               style="text-decoration: none; width: 100%; margin-bottom: 10px;">checkout</a>
-                            <a href="cart.html" class="form-button "
-                               style="text-decoration: none; width: 100%;     display: flex;    align-items: center;    justify-content: center;">go
+                            <a href="checkout.html" class="white-pink-button form-button" style="text-decoration: none; width: 100%; margin-bottom: 10px;">checkout</a>
+                            <a href="cart.html" class="form-button " style="text-decoration: none; width: 100%;     display: flex;    align-items: center;    justify-content: center;">go
                                 to cart</a>
                         </div>
                     </div>
 
-                <button class="button" type="button" @click="handleCartClick">Корзина</button>
+                    <button class="button" type="button" @click="handleCartClick">Корзина</button>
+                </div>
             </div>
-        </div>
-    </header>
-    <main>
-        <div class="container">
-            <div class="items-container">
+        </header>
+        <main>
+            <div class="container">
+                <div class="items-container">
                     <div v-for="item in filteredItems" class="product-flex">
                         <a href="#" class="product-item">
-                            <div :style="`background-image: url(img/` + item.img + `);`" class="product-image" ></div>
+                            <div :style="`background-image: url(img/` + item.img + `);`" class="product-image"></div>
                             <p class="product-name">{{item.title}}</p>
                             <p class="product-price">{{item.count}} шт. х ${{item.price}} </p>
                         </a>
                         <a href="#addtocart" class="add-to-cart"><img src="img/cart-white.svg" alt="cart">Add to
                             Cart</a></div>
 
-                <div style="display: none;">
-                    <h2>Список пуст!</h2>
+                    <div style="display: none;">
+                        <h2>Список пуст!</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-</div>
+        </main>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="script.js"></script>
 

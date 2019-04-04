@@ -15,8 +15,7 @@ const app = new Vue({
     methods: {
         handleSearchClick() {
             const regexp = new RegExp(this.searchLine, 'i');
-            this.filteredItems = this.items.filter((item) =>                 regexp.test(item.title)
-            );
+            this.filteredItems = this.items.filter((item) => regexp.test(item.title));
 
         },
 
@@ -26,7 +25,7 @@ const app = new Vue({
 
         calculate() {
             let cost = 0;
-            for (let item of this.items) {
+            for (let item of this.cart.items) {
                 cost += item.price * item.count;
             }
             return cost;
@@ -43,6 +42,11 @@ const app = new Vue({
             .then((items) => {
                 this.items = items;
                 this.filteredItems = items;
-            })
+            });
+        fetch('http://localhost:3000/cart')
+            .then(response => response.json())
+            .then((items) => {
+                this.cart.items = items;
+            });
     }
 });

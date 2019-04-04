@@ -1,32 +1,47 @@
 {
-  "products": [
-    {
-      "id": 1,
-      "title": "Shirt",
-      "price": 150,
-      "count": 2,
-      "img": "f1.jpg"
+    "products": [
+        {
+            "id": 1,
+            "title": "Shirt",
+            "price": 150,
+            "count": 2,
+            "img": "f1.jpg"
     },
-    {
-      "id": 2,
-      "title": "Socks",
-      "price": 50,
-      "count": 2,
-      "img": "f2.jpg"
+        {
+            "id": 2,
+            "title": "Socks",
+            "price": 50,
+            "count": 2,
+            "img": "f2.jpg"
     },
-    {
-      "id": 3,
-      "title": "Jacket",
-      "price": 350,
-      "count": 2,
-      "img": "f3.jpg"
+        {
+            "id": 3,
+            "title": "Jacket",
+            "price": 350,
+            "count": 2,
+            "img": "f3.jpg"
     },
-    {
-      "id": 4,
-      "title": "Shoes",
-      "price": 250,
-      "count": 2,
-      "img": "f4.jpg"
+        {
+            "id": 4,
+            "title": "Shoes",
+            "price": 250,
+            "count": 2,
+            "img": "f4.jpg"
     }
-  ]
+  ],
+    "cart": [{
+            "id": 1,
+            "title": "Socks",
+            "price": 50,
+            "count": 2,
+            "img": "f2.jpg"
+    },
+        {
+            "id": 2,
+            "title": "Shoes",
+            "price": 250,
+            "count": 1,
+            "img": "f4.jpg"
+    }
+    ]
 }
