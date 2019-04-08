@@ -1,3 +1,29 @@
+Vue.component('search', {
+    template: `<div>
+        <input type="text" class="search-form" v-model="searchLine" placeholder="Search for Item...">
+        <button class="search-button" @click="handleSearchClick"><i class="fas fa-search"></i></button></div>
+`
+});
+
+Vue.component('product', {
+    props: ['item'],
+    template: ` <div>
+        <a href="#" class="product-item">
+            <div style="background - image: url('img/f1.jpg');" class="product-image"></div>
+            <p class="product-name">{{ item.title }}</p>
+            <p class="product-price">{{ item.count }} шт.х \${{ item.price }} </p>
+        </a>
+        <a href="#addtocart" class="add-to-cart">
+            <img src="img/cart-white.svg" alt="cart">Add to Cart</a></div>`
+});
+
+Vue.component('products', {
+    props: ['filtereditems'],
+    template: `
+                <div class="items-container"><product v-for="item in filtereditems" :item="item" class="product-flex"></product></div>`
+});
+
+
 const app = new Vue({
     el: '#app',
     data: {

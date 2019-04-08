@@ -13,10 +13,7 @@
         <header class="header">
             <div class="container header-flex">
                 <div class="header-left">
-                    <form action="#" class="header-form">
-                        <input type="text" class="search-form" v-model="searchLine" placeholder="Search for Item...">
-                        <button class="search-button" @click="handleSearchClick"><i class="fas fa-search"></i></button>
-                    </form>
+                    <search></search>
                 </div>
                 <div class="header-right">
                     <h2 class="grand-total-price" style="display: flex; align-items: center; margin-right: 50px;">${{calculate()}}</h2>
@@ -51,21 +48,9 @@
         </header>
         <main>
             <div class="container">
-                <div class="items-container">
-                    <div v-for="item in filteredItems" class="product-flex">
-                        <a href="#" class="product-item">
-                            <div :style="`background-image: url(img/` + item.img + `);`" class="product-image"></div>
-                            <p class="product-name">{{item.title}}</p>
-                            <p class="product-price">{{item.count}} шт. х ${{item.price}} </p>
-                        </a>
-                        <a href="#addtocart" class="add-to-cart"><img src="img/cart-white.svg" alt="cart">Add to
-                            Cart</a></div>
-
-                    <div style="display: none;">
-                        <h2>Список пуст!</h2>
-                    </div>
-                </div>
+                <products filtereditems="filteredItems"></products>
             </div>
+
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
