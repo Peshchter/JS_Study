@@ -48,20 +48,7 @@
         </header>
         <main>
             <div class="container">
-                <div class="items-container">
-                    <div v-for="item in filteredItems" class="product-flex">
-                        <a href="#" class="product-item">
-                            <div :style="`background-image: url(img/` + item.img + `);`" class="product-image"></div>
-                            <p class="product-name">{{item.title}}</p>
-                            <p class="product-price">{{item.count}} шт. х ${{item.price}} </p>
-                        </a>
-                        <a href="#addtocart" class="add-to-cart"><img src="img/cart-white.svg" alt="cart">Add to
-                            Cart</a></div>
-
-                    <div style="display: none;">
-                        <h2>Список пуст!</h2>
-                    </div>
-                </div>
+                <products :query="filterLine" @onbuy="handleBuyClick"></products>
             </div>
         </main>
     </div>

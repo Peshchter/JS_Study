@@ -1,3 +1,5 @@
+const URL = 'http://localhost:3000';
+
 Vue.component('search', {
     data(){
         return {
@@ -15,27 +17,89 @@ Vue.component('search', {
         }
     },
 
-})
-;
+});
+
+Vue.component('product', {
+    props: ['item'],
+    template: `
+        <div class="product-flex">
+            <a href="#" class="product-item">
+                <div class="product-image" :style="{ backgroundImage: bImage }" ></div>
+                <p class="product-name">{{item.title}}</p>
+                <p class="product-price">{{item.count}} шт. х \${{item.price}} </p>
+            </a>
+            <a href="#addtocart" class="add-to-cart" @click.prevent="buy(item)"><img src="img/cart-white.svg" alt="cart">Add to Cart</a>
+        </div>`,
+    computed: {
+        bImage() {
+            return `url(img/${this.item.img})`;
+        }
+    },
+    methods:{
+        buy(item) {
+            this.$emit('onBuy', item)
+        }
+    }
+
+});
+
+Vue.component('products', {
+    props: ['query'],
+    data(){
+        return {
+            items: [],
+        }
+    },
+    template: `
+        <div class="items-container">
+              <product v-for="entry in filteredItems" :item="entry" @onBuy="handleBuyClick"></product>
+        </div>
+    `,
+
+    mounted(){
+        fetch(`${URL}/products`)
+            .then(response => response.json())
+            .then((items) => {
+                this.items = items;
+                         });
+    },
+    computed: {
+        filteredItems() {
+            if(this.query){
+                const regexp = new RegExp(this.query, 'i');
+                return this.items.filter((item) => regexp.test(item.title));
+            }else{
+                return this.items;
+            }
+
+        }
+    },
+
+    methods:{
+        handleBuyClick(item){
+            this.$emit('onbuy', item)
+        }
+    }
+});
 
 const app = new Vue({
     el: '#app',
     data: {
-        items: [],
-        filteredItems: [],
         popupCart: {
             visible: false,
             cartItems: []
         },
         cart: {
             items: []
-        }
+        },
+        filterLine: '',
     },
     methods: {
-        handleSearchClick(Line) {
-            const regexp = new RegExp(Line, 'i');
-            this.filteredItems = this.items.filter((item) => regexp.test(item.title));
+        handleBuyClick(){
 
+        },
+        handleSearchClick(Line) {
+            this.filterLine = Line;
         },
 
         handleCartClick() {
@@ -50,18 +114,10 @@ const app = new Vue({
             return cost;
         },
 
-        filterItems(query) {
-
-        }
     },
 
     mounted() {
-        fetch('http://localhost:3000/products')
-            .then(response => response.json())
-            .then((items) => {
-                this.items = items;
-                this.filteredItems = items;
-            });
+
         fetch('http://localhost:3000/cart')
             .then(response => response.json())
             .then((items) => {
