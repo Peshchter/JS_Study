@@ -1,9 +1,28 @@
+Vue.component('search', {
+    data(){
+        return {
+            searchLine : ''
+        }
+    },
+    template: `
+        <form action="#" class="header-form">
+             <input type="text" class="search-form" v-model="searchLine" placeholder="Search for Item...">
+             <button class="search-button" @click.prevent="handleSearchClick"><i class="fas fa-search"></i></button>
+        </form>`,
+    methods: {
+        handleSearchClick(){
+            this.$emit('search', this.searchLine)
+        }
+    },
+
+})
+;
+
 const app = new Vue({
     el: '#app',
     data: {
         items: [],
         filteredItems: [],
-        searchLine: '',
         popupCart: {
             visible: false,
             cartItems: []
@@ -13,8 +32,8 @@ const app = new Vue({
         }
     },
     methods: {
-        handleSearchClick() {
-            const regexp = new RegExp(this.searchLine, 'i');
+        handleSearchClick(Line) {
+            const regexp = new RegExp(Line, 'i');
             this.filteredItems = this.items.filter((item) => regexp.test(item.title));
 
         },

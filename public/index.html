@@ -13,10 +13,7 @@
         <header class="header">
             <div class="container header-flex">
                 <div class="header-left">
-                    <form action="#" class="header-form">
-                        <input type="text" class="search-form" v-model="searchLine" placeholder="Search for Item...">
-                        <button class="search-button" @click="handleSearchClick"><i class="fas fa-search"></i></button>
-                    </form>
+                    <search @search="handleSearchClick"></search>
                 </div>
                 <div class="header-right">
                     <h2 class="grand-total-price" style="display: flex; align-items: center; margin-right: 50px;">${{calculate()}}</h2>
