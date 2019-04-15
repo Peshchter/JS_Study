@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <title>Служебная: добавление элемента в базу </title>
+</head>
+<body>
+<div id="v-app">
+<div class="container">
+    <form action="#" class="default-fieldset">
+        <h2 class="fieldset-legend">Добавление:</h2>
+        <label for="name" class="form-label">Название</label>
+        <input id="name" required="" class="default-input">
+        <label for="count" class="form-label">Количество</label>
+        <input id="count" required="" class="default-input">
+        <label for="price" class="form-label">Цена</label>
+        <input id="price" required="" type="number" class="default-input">
+        <button type="submit" @click="sendForm" class="form-button">Отправить</button>
+    </form>
+</div>
+</div>
+<script src="add_product.js"></script>
+</body>
+</html>

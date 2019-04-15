@@ -43,5 +43,31 @@
             "count": 1,
             "img": "f4.jpg"
     }
-    ]
+    ],
+  "colors": [
+    {
+      "id": 1,
+      "name": "Red"
+    },
+    {
+      "id": 2,
+      "name": "Green"
+    },
+    {
+      "id": 3,
+      "name": "Blue"
+    },
+    {
+      "id": 4,
+      "name": "Yellow"
+    },
+    {
+      "id": 5,
+      "name": "Black"
+    },
+    {
+      "id": 6,
+      "name": "White"
+    }
+  ]
 }
