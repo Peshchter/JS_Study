@@ -71,7 +71,7 @@ Vue.component('product', {
     props: ['item'],
     template: `
         <div class="product-flex">
-            <a :href="link(item)" class="product-item">
+            <a href="singlepage.html" class="product-item">
                 <div class="product-image" :style="{ backgroundImage: bImage }" ></div>
                 <p class="product-name">{{item.title}}</p>
                 <p class="product-price">\${{item.price}} </p>
@@ -86,16 +86,13 @@ Vue.component('product', {
     methods: {
         buy(item) {
             this.$emit('onBuy', item)
-        },
-        link(item){
-            return `singlepage.html?id=${item.id}`;
-        },
+        }
     }
 
 });
 
 Vue.component('products', {
-    props: ['query','maxprice'],
+    props: ['query'],
     data() {
         return {
             items: [],
@@ -118,9 +115,9 @@ Vue.component('products', {
         filteredItems() {
             if (this.query) {
                 const regexp = new RegExp(this.query, 'i');
-                return this.items.filter((item) => regexp.test(item.title)).filter((item) => item.price < this.maxprice);
+                return this.items.filter((item) => regexp.test(item.title));
             } else {
-                return this.items.filter((item) => item.price < this.maxprice);
+                return this.items;
             }
 
         }
@@ -182,93 +179,24 @@ Vue.component('cart', {
     },
 });
 
-Vue.component('cart-table', {
-    props: ['items'],
-    template: `
-        <div>
-            <div class="cart-table">
-            <h2 class="cart-headers">Product Details</h2>
-            <h2 class="cart-headers">unite Price</h2>
-            <h2 class="cart-headers">Quantity</h2>
-            <h2 class="cart-headers">shipping </h2>
-            <h2 class="cart-headers">Subtotal </h2>
-            <h2 class="cart-headers">ACTION</h2>
-        </div>
-        <article v-for="item in items" class="product">
-            <div class="cart-table">
-                <div class="cart-headers">
-                    <a :href="link(item)" class="cart-product-link">
-                        <img :src="path(item)" alt="" class="cart-product-image"
-                             style="background-color: rgba(101, 169, 200, 0.09);">
-                        <div class="cart-product">
-                            <h2 class="product-name">{{item.title}}</h2>
-                            <div>
-                                <p class="cart-product-parameter">Color: <span class="cart-parameter-value">Red</span>
-                                </p>
-                                <p class="cart-product-parameter">Size: <span class="cart-parameter-value"> Xll</span>
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="cart-headers product-cart-details">\${{item.price}}</div>
-                <div class="cart-headers"><input type="number" v-model.number="item.count" class="default-input quantity-input" @change="countchange(item)">
-                </div>
-                <div class="cart-headers product-cart-details">FREE</div>
-                <div class="cart-headers product-cart-details">\${{subtotal(item)}}</div>
-                <div class="cart-headers cart-action">
-                    <button class="action-delete" @click.prevent="ondelete(item)"><i class="fas fa-times-circle"></i></button>
-                </div>
-            </div>
-        </article>
-            <div class="header-flex" style="margin-top: 40px;">
-            <button class="form-button" style="width: 235px;" @click.prevent="clearcart">Очистить корзину</button>
-            <form action="product.html">
-                <button type="submit" class="form-button" style="width: 225px;">cONTINUE sHOPPING</button>
-            </form>
-        </div>
-        </div>
-    `,
-    methods: {
-        ondelete(item) {
-            this.$emit('ondelete', item);
-        },
-        countchange(item) {
-            this.$emit('countchange', item);
-        },
-        clearcart() {
-            this.$emit('clearcart');
-        },
-        path(item) {
-            return `img/${item.img}`;
-        },
-        link(item){
-           return `singlepage.html?id=${item.id}`;
-        },
-        subtotal(item) {
-            return +(item.price * item.count);
-        }
-    },
-});
 
 const app = new Vue({
     el: '#app',
     data: {
         filterLine: '',
         cart: [],
-        maxPrice: 100000
+        product: Object,
     },
     methods: {
-        handleBuyClick(item) {
-            const cartItem = this.cart.find((ci) => ci.id === item.id);
+        handleBuyClick() {
+            const cartItem = this.cart.find((ci) => ci.id === this.product.id);
             if (cartItem) {
                 fetch(`${URL}/cart/${cartItem.id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({count: cartItem.count + 1})
+                    body: JSON.stringify({count: cartItem.count + this.product.count})
                 }).then(
                     (response) => response.json()
                 ).then((item) => {
@@ -281,7 +209,7 @@ const app = new Vue({
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({...item, count: 1})
+                    body: JSON.stringify({...this.product, count: this.product.count})
                 }).then(
                     (response) => response.json()
                 ).then((item) => {
@@ -296,6 +224,11 @@ const app = new Vue({
         handleClearCart() {
             for (item of this.cart) {
                 this.ondelete(item)
+            }
+        },
+        bImage() {
+            if (this.product.img) {
+                return `background-image: url(img/${this.product.img})`;
             }
         },
         ondelete(item) {
@@ -317,7 +250,7 @@ const app = new Vue({
                 return 0;
             }
         },
-        countchange(item){
+        countchange(item) {
             fetch(`${URL}/cart/${item.id}`, {
                 method: 'PATCH',
                 headers: {
@@ -330,7 +263,10 @@ const app = new Vue({
                 const idx = this.cart.findIndex((pr) => pr.id === item.id);
                 Vue.set(this.cart, idx, item);
             })
-        }
+        },
+        link(item){
+            return `singlepage.html?id=${item.id}`;
+        },
     },
     mounted() {
         fetch(`${URL}/cart`)
@@ -338,5 +274,13 @@ const app = new Vue({
             .then((items) => {
                 this.cart = items;
             });
+        let params = new URLSearchParams(document.location.search.substring(1));
+        let idx = +params.get('id');
+        fetch(`${URL}/products`)
+            .then(response => response.json())
+            .then((items) => {
+                this.product = items.find((ci) => ci.id === idx);
+            });
+
     },
 });

@@ -1,49 +1,98 @@
 {
-    "products": [
-        {
-            "id": 1,
-            "title": "Shirt",
-            "price": 150,
-            "count": 2,
-            "img": "f1.jpg"
+  "products": [
+    {
+      "id": 1,
+      "title": "Сапоги",
+      "price": 150,
+      "count": 2,
+      "img": "sapogi.webp",
+      "sizes": [
+        "XL,L,M"
+      ]
     },
-        {
-            "id": 2,
-            "title": "Socks",
-            "price": 50,
-            "count": 2,
-            "img": "f2.jpg"
+    {
+      "id": 2,
+      "title": "Кепка",
+      "price": 55,
+      "count": 2,
+      "img": "kepka.webp",
+      "sizes": [
+        "XL,XXL,S"
+      ]
     },
-        {
-            "id": 3,
-            "title": "Jacket",
-            "price": 350,
-            "count": 2,
-            "img": "f3.jpg"
+    {
+      "id": 3,
+      "title": "Свитер",
+      "price": 350,
+      "count": 2,
+      "img": "sviter.webp",
+      "sizes": [
+        "XL,S,M,XXL"
+      ]
     },
-        {
-            "id": 4,
-            "title": "Shoes",
-            "price": 250,
-            "count": 2,
-            "img": "f4.jpg"
+    {
+      "id": 4,
+      "title": "Туфли",
+      "price": 450,
+      "count": 2,
+      "img": "tyfli.webp",
+      "sizes": [
+        "XL,S,M"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Рубашка",
+      "price": 400,
+      "count": 2,
+      "img": "shirt.jpg",
+      "sizes": [
+        "XL,L,M"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Брюки",
+      "price": 180,
+      "count": 2,
+      "img": "br.jpg",
+      "sizes": [
+        "XL,L,M"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Шорты",
+      "price": 135,
+      "count": 2,
+      "img": "Short.jpg",
+      "sizes": [
+        "XL,L,M"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Носки",
+      "price": 25,
+      "count": 2,
+      "img": "socks.png",
+      "sizes": [
+        "XL,L,M"
+      ]
     }
   ],
-    "cart": [{
-            "id": 1,
-            "title": "Socks",
-            "price": 50,
-            "count": 2,
-            "img": "f2.jpg"
-    },
-        {
-            "id": 2,
-            "title": "Shoes",
-            "price": 250,
-            "count": 1,
-            "img": "f4.jpg"
+  "cart": [
+    {
+      "id": 2,
+      "title": "Кепка",
+      "price": 55,
+      "count": "7",
+      "img": "kepka.webp",
+      "sizes": [
+        "XL,XXL,S"
+      ]
     }
-    ],
+  ],
   "colors": [
     {
       "id": 1,
